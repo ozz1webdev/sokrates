@@ -1,6 +1,7 @@
 import './App.css';
 import Homepage from './pages/home.jsx';
 import Navbar from './components/navbar.jsx';
+import Burgermenu from './components/burgermenu.jsx';
 
 const Layout = ({ children }) => {
   return (
@@ -21,7 +22,7 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <div className="App">
-
+      <Burgermenu />
       <Navbar />
 
       <Layout>

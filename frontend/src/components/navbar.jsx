@@ -1,18 +1,21 @@
 import React from "react";
 import styles from '../styles/navbar.module.css';
-import Burgermenu from './burgermenu.jsx';
 
 function Navbar() {
 
     return (
-        <div>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#login">Login</a></li>
-                <li><a href="#register">Register</a></li>
-            </ul>
-            <Burgermenu />
+        <div className={styles.navbar}>
+            <div className={styles.logo}>
+                Logo
+            </div>
+            <div className={styles.menu}>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#login">Login</a></li>
+                    <li><a href="#register">Register</a></li>
+                </ul>
+            </div>
         </div>
     );
 }

@@ -9,7 +9,7 @@ const BurgerMenu = () => {
     };
 
     return (
-        <div className={styles.burgerMenu}> {/* Apply styles using styles.variableName */}
+        <div className={styles.burgermenu}> 
             <div
                 className={`${styles.burger} ${isOpen ? styles.open : ''}`}
                 onClick={toggleMenu}

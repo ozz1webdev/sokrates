@@ -1,4 +1,4 @@
-.burger-menu {
+.burgermenu {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -21,6 +21,7 @@
     width: 100%;
     background: #333;
     transition: all 0.3s ease;
+    z-index: 1001;
 }
 
 .burger.open .bar:nth-child(1) {
@@ -44,14 +45,16 @@
     border: 1px solid rgba(90, 149, 173, 0.3);
 
     display: none; /* Hide nav by default */
-    position: absolute;
+    position: fixed;
+    transition: all 0.3s ease;
     top: 0px;
-    left: 50px;
-    width: 200px;
+    right: 0px;
+    width: 400px;
+    height: 100%;
 }
 
 .nav.open {
-    display: block; /* Show nav when open */
+    display: block;
 }
 
 .nav ul {
@@ -62,16 +65,13 @@
 
 .nav li {
     padding: 15px;
-    text-align: center;
-    color:red;
+    text-align: left;
 }
 
 .nav a {
     text-decoration: none;
-    text-shadow: #373535 1px 1px 1px;
-    color: #a9a1a1;
-    font-weight: bold;
-}
+    color: #886e11;
+}    
 
 .nav a:hover {
     color: #007bff; /* Change color on hover */
