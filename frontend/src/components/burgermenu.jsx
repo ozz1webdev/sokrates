@@ -21,6 +21,7 @@ const BurgerMenu = () => {
             <nav className={`${styles.nav} ${isOpen ? styles.open : ''}`}>
                 <ul>
                     <li><a href="#home">Home</a></li>
+                    <li><a href="#posts">Posts</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="#login">Login</a></li>
                     <li><a href="#registr">Register</a></li>
