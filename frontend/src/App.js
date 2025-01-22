@@ -5,7 +5,7 @@ import Burgermenu from './components/burgermenu.jsx';
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className="layout">
       <header>
         <h1>Header</h1>
       </header>
