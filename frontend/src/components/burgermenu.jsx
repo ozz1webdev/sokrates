@@ -20,7 +20,7 @@ const BurgerMenu = () => {
                 <div className={styles.bar}></div>
             </div>
             <nav className={`${styles.nav} ${isOpen ? styles.open : ''}`}>
-                <div className="{styles.logo} animate__animated animate__fadeIn">
+                <div className={`${styles.logo} animate__animated animate__fadeIn`}>
                     <Logo />
                 </div>
                 <ul>
