@@ -11,7 +11,9 @@
 }
 .navbarlogo {
     position: absolute;
+    display: inline;
     transition:all 1s ease;
+    z-index: 10;
 }
 .navbarlogo img {
     width: 100%;
@@ -33,22 +35,18 @@
     align-items: center;
     width:100%;
     justify-content: center;
+    z-index: 99;
 }
 .menu li {
     list-style: none;
     margin: 0 10px;
     cursor: pointer;
 }
-.menu li a {
-    font-size: 18px;
-    text-decoration: none;
-    color: black;
-}
-.menu li a:hover {
+.menu li i:hover {
     color: #9c750d;
     text-decoration: underline;
 }
-.menu li a.active {
+.menu li i.active {
     color: blue;
     text-decoration: underline;
     font-style: bold;
