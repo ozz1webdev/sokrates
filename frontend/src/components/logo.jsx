@@ -1,14 +1,15 @@
+import logoSokrates from '../assets/images/SokratesLogo.png';
+
 const Logo = () => {
 
     const style = {
-        backgroundColor: 'black',
         width: '90px',
         height: '90px',
         color: 'white',
     };
 
     return (
-        <div style={style}>Logo</div>
+        <div style={style}><img src={logoSokrates} alt="Logo" /></div>
     );
 };
 
