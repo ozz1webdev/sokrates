@@ -39,6 +39,8 @@ function Register () {
                 <input type="password" name="password2" placeholder="Repeat Password" value={password2} onChange={handleChange} />
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} />
+                <label htmlFor="terms" >Agree to terms and conditions</label>
+                <input type="checkbox" name="terms" />
                 <button type="submit">Register</button>
             </form>
         </div>

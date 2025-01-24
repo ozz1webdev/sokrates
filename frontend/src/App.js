@@ -7,6 +7,7 @@ import RegisterPage from './pages/auth/register.jsx';
 import ContactPage from './pages/contact.jsx';
 import PostsPage from './pages/posts.jsx';
 import HomePage from './pages/home.jsx';
+import Footer from './pages/footer.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const Layout = ({ children }) => {
@@ -19,7 +20,7 @@ const Layout = ({ children }) => {
         {children}
       </main>
       <footer>
-        <h1>Footer</h1>
+        <Footer />
       </footer>
     </div>
   );

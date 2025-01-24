@@ -1,4 +1,4 @@
-import logoSokrates from '../assets/images/SokratesLogo.png';
+import logoSokrates from '../assets/images/sokrateslogo.webp';
 
 const Logo = () => {
 

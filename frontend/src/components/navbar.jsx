@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from '../styles/navbar.module.css';
 import { useNavigate } from "react-router-dom";
-import LogoImg from '../assets/images/sokratesLogo512.png';
+import LogoImg from '../assets/images/sokrateslogo512.webp';
 import "animate.css";
 
 function Navbar() {

@@ -1,0 +1,52 @@
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+}
+.loginContainerInner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 550px;
+    height: 450px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+.loginImg img {
+    width:150px;
+    height:150px;
+}
+.loginContainer h1 {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.loginForm input {
+    margin-bottom: 10px;
+    width: 300px;
+    height: 30px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid black;
+}
+.loginForm input:focus {
+    outline: none;
+}
+
+.loginForm button {
+    margin-top: 10px;
+    width: 300px;
+    height: 40px;
+    border: 1px solid black;
+}
