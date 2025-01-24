@@ -80,6 +80,7 @@ INSTALLED_APPS = [
 
     # Local
     'api',
+    'posts',
 
     # 3rd party
     'rest_framework.authtoken',
