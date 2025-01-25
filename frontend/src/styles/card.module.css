@@ -5,12 +5,13 @@
     justify-content: center;
     gap:20px;
     width:90%;
-    height:90%;
+    height:100%;
+    margin-bottom:50px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.589);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 .cardContainer>img {
-    width:100%;
+    width:90%;
     height:250px;
 }
 .cardHeader {
@@ -19,11 +20,43 @@
     align-items: center;
     justify-content: center;
 }
-.cardBody {
-
-}
 .cardContext {
+    padding:30px;
+    display: flex;
+    width:100%;
+}
+.cardContainer hr {
+    color:black;
+    width:90%;
+}
+.cardFooter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:90%;
+    padding-bottom:20px;
 }
 .cardLink {
-
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cardLink:hover {
+    color: #007bff;
+    scale: 1.1;
+}
+.cardLike {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+}
+.cardLike img {
+    cursor: pointer;
+}
+.cardLike img:hover {
+    scale: 1.1;
 }

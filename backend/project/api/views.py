@@ -5,4 +5,45 @@ from rest_framework.permissions import IsAuthenticated
 from .serializer import ProfileSerializer
 from .models import UserProfile
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = ProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class LoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = User.objects.filter(username=username).first()
+        if user is None:
+            return Response({"error": "User not found"}, status=404)
+        if not user.check_password(password):
+            return Response({"error": "Invalid password"}, status=401)
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key}, status=200)
+
+
+class LogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        request.user.auth_token.delete()
+        return Response({"message": "Logout successful"}, status=200)
+
+
+class ProfileView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        serializer = ProfileSerializer(user_profile)
+        return Response(serializer.data, status=200)
