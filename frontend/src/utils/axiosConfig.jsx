@@ -19,11 +19,18 @@ const axiosMultipartWithToken = axios.create({
         Authorization: `Token ${localStorage.getItem('token')}`
     }
 });
+const axiosMultipartNoToken = axios.create({
+    baseURL: `${serverUrl}/`,  // Django backend URL
+    timeout: 5000,
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    }
+});
 
 const axiosNoToken = axios.create({
-    baseURL: `${serverUrl}/api`,  // Django backend URL
+    baseURL: `${serverUrl}`,  // Django backend URL
     timeout: 5000,
 });
 
 
-export { axiosWithToken, axiosMultipartWithToken, axiosNoToken, serverUrl };
+export { axiosWithToken, axiosMultipartWithToken, axiosMultipartNoToken, axiosNoToken, serverUrl };

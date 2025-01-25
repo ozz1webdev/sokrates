@@ -1,16 +1,19 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from .serializer import ProfileSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from .serializers import UserSerializer
 from .models import UserProfile
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 
 class RegisterView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request):
-        serializer = ProfileSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -45,5 +48,5 @@ class ProfileView(APIView):
 
     def get(self, request):
         user_profile = UserProfile.objects.get(user=request.user)
-        serializer = ProfileSerializer(user_profile)
+        serializer = UserSerializer(user_profile)
         return Response(serializer.data, status=200)

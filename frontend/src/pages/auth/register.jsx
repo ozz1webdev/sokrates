@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from '../../styles/register.module.css';
+import {axiosMultipartNoToken} from '../../utils/axiosConfig';
 
 function Register () {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [email, setEmail] = useState('');
+    const [terms, setTerms] = useState(false);
 
     const navigate = useNavigate();
 
@@ -18,31 +20,43 @@ function Register () {
                 setPassword(e.target.value);
         }
         if (e.target.name === 'password2') {
-            setPassword(e.target.value);
-    }
-    if (e.target.name === 'email') {
+            setPassword2(e.target.value);
+        }
+        if (e.target.name === 'email') {
                 setEmail(e.target.value);
+        }
+        if (e.target.name === 'terms') {
+            setTerms(e.target.checked);
         }
     }
 
     const handleRegister = () => {
-        // Perform registration logic here
+        if (password === password2 && terms) {
+            axiosMultipartNoToken.post('register/', {username: username, password: password, email: email})
+            .then((response) => {
+                console.log(response.data);
+                navigate('/login');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
     };
 
     return (
         <div className={styles.registerContainer}>
-            <h1>Register Page</h1>
+            <h3>Create an account</h3>
             <form onSubmit={handleRegister} className={styles.registerForm}>
                 <label htmlFor="username">Username</label>
-                <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} />
+                <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} required/>
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" placeholder="Password" value={password} onChange={handleChange} />
+                <input type="password" name="password" placeholder="Password" value={password} onChange={handleChange} required/>
                 <label htmlFor="password2">Repeat Password</label>
-                <input type="password" name="password2" placeholder="Repeat Password" value={password2} onChange={handleChange} />
+                <input type="password" name="password2" placeholder="Repeat Password" value={password2} onChange={handleChange} required/>
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} />
+                <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} required/>
                 <label htmlFor="terms" onClick={() => {navigate('/terms'); }}>Agree to terms and conditions</label>
-                <input type="checkbox" name="terms" />
+                <input type="checkbox" name="terms" onChange={handleChange} required />
                 <button type="submit">Register</button>
             </form>
         </div>
