@@ -15,7 +15,8 @@ const Layout = ({ children }) => {
   return (
     <div className="layout">
       <header>
-        <h1>Header</h1>
+        <Burgermenu />
+        <Navbar />
       </header>
       <main>
         {children}
@@ -31,8 +32,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Burgermenu />
-        <Navbar />
 
         <Layout>
 

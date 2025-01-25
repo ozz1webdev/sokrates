@@ -4,3 +4,17 @@
   flex-direction: column;
   top:255px;
 }
+.layout main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.layout footer {
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
