@@ -8,6 +8,7 @@ import ContactPage from './pages/contact.jsx';
 import PostsPage from './pages/posts.jsx';
 import HomePage from './pages/home.jsx';
 import Footer from './pages/footer.jsx';
+import TermsPage from './pages/terms.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const Layout = ({ children }) => {
@@ -41,6 +42,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/posts" element={<PostsPage />} />
+            <Route path="/terms" element={<TermsPage />} />
           </Routes>
 
         </Layout>

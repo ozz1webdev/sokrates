@@ -8,6 +8,8 @@ function Register () {
     const [password2, setPassword2] = useState('');
     const [email, setEmail] = useState('');
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         if (e.target.name === 'username') {
                 setUsername(e.target.value);
@@ -39,7 +41,7 @@ function Register () {
                 <input type="password" name="password2" placeholder="Repeat Password" value={password2} onChange={handleChange} />
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} />
-                <label htmlFor="terms" >Agree to terms and conditions</label>
+                <label htmlFor="terms" onClick={() => {navigate('/terms'); }}>Agree to terms and conditions</label>
                 <input type="checkbox" name="terms" />
                 <button type="submit">Register</button>
             </form>
