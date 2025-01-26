@@ -3,7 +3,7 @@ import axios from 'axios';
 const serverUrl = 'http://localhost:8000';
 
 const axiosWithToken = axios.create({
-    baseURL: `${serverUrl}/api`,
+    baseURL: `${serverUrl}`,
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ const axiosWithToken = axios.create({
 });
 
 const axiosMultipartWithToken = axios.create({
-    baseURL: `${serverUrl}/api`,
+    baseURL: `${serverUrl}`,
     timeout: 5000,
     headers: {
         'Content-Type': 'multipart/form-data',

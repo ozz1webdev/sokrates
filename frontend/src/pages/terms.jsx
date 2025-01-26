@@ -13,7 +13,7 @@ const TermsOfUse = () => {
 
         <section style={{ marginBottom: '20px' }}>
             <h2 style={{ color: '#444' }}>1. Acceptance of Cookies</h2>
-            <p>This Website uses cookies to enhance user experience, analyze site usage, and assist in our marketing efforts. By using this Website, you agree to our use of cookies as described in our <a href="#" style={{ color: '#0066cc', textDecoration: 'none' }}>Cookie Policy/Privacy Policy</a>. You can manage your cookie preferences through your browser settings, but some features of the Website may not function properly without cookies.</p>
+            <p>This Website uses cookies to enhance user experience, analyze site usage, and assist in our marketing efforts. By using this Website, you agree to our use of cookies as described in our Cookie Policy/Privacy Policy. You can manage your cookie preferences through your browser settings, but some features of the Website may not function properly without cookies.</p>
         </section>
 
         <section style={{ marginBottom: '20px' }}>

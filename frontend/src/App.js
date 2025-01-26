@@ -10,6 +10,7 @@ import HomePage from './pages/home.jsx';
 import Footer from './pages/footer.jsx';
 import TermsPage from './pages/terms.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Toaster} from 'react-hot-toast';
 
 const Layout = ({ children }) => {
   return (
@@ -32,7 +33,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-
+        <Toaster position="top-left" reverseOrder={false} />
         <Layout>
 
           <Routes>

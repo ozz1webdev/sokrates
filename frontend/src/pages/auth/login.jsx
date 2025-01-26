@@ -3,6 +3,7 @@ import style from '../../styles/login.module.css';
 import { useNavigate } from "react-router-dom";
 import LoginImg from '../../assets/images/lock.webp';
 import {axiosMultipartNoToken} from '../../utils/axiosConfig';
+import toast from 'react-hot-toast';
 
 function Login () {
     const [username, setUsername] = useState('');
@@ -17,8 +18,7 @@ function Login () {
         if (e.target.name === 'password') {
                 setPassword(e.target.value);
         }
-}
-        
+    }
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -28,11 +28,12 @@ function Login () {
             password: password
         })
         .then((response) => {
-            console.log(response.data);
+            toast.success("Login successful");
+            localStorage.setItem('token', response.data.token);
             navigate('/');
         })
         .catch((error) => {
-            console.log(error);
+            toast.error("Username or password is incorrect");
         });
     };
 
@@ -52,6 +53,7 @@ function Login () {
                         value={username}
                         placeholder="Username"
                         onChange={handleChange}
+                        required
                     />
                     <label htmlFor="password">Password</label>
                     <input
@@ -60,6 +62,7 @@ function Login () {
                         placeholder="Password"
                         value={password}
                         onChange={handleChange}
+                        required
                     />
                     <button type="submit">Login</button>
                 </form>

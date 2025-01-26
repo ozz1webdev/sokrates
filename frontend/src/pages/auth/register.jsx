@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from '../../styles/register.module.css';
-import {axiosMultipartNoToken, axiosNoToken } from '../../utils/axiosConfig';
-import axios from "axios";
+import {axiosMultipartNoToken } from '../../utils/axiosConfig';
+import toast from 'react-hot-toast';
 
 function Register () {
     const [username, setUsername] = useState('');
@@ -41,11 +41,11 @@ function Register () {
                 email: email
             })
             .then((response) => {
-                console.log(response.data);
+                toast.success(response.data.message);
                 navigate('/login');
             })
             .catch((error) => {
-                console.log(error);
+               toast.error(error.response.data.username[0]);
             });
         }
     };
