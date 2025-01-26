@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from '../../styles/register.module.css';
-import {axiosMultipartNoToken} from '../../utils/axiosConfig';
+import {axiosMultipartNoToken, axiosNoToken } from '../../utils/axiosConfig';
+import axios from "axios";
 
 function Register () {
     const [username, setUsername] = useState('');
@@ -30,9 +31,15 @@ function Register () {
         }
     }
 
-    const handleRegister = () => {
+    const handleRegister = (e) => {
+        e.preventDefault();
+
         if (password === password2 && terms) {
-            axiosMultipartNoToken.post('register/', {username: username, password: password, email: email})
+            axiosMultipartNoToken.post('/api/register/', {
+                username: username,
+                password: password,
+                email: email
+            })
             .then((response) => {
                 console.log(response.data);
                 navigate('/login');

@@ -3,7 +3,7 @@ import axios from 'axios';
 const serverUrl = 'http://localhost:8000';
 
 const axiosWithToken = axios.create({
-    baseURL: `${serverUrl}/api`,  // Django backend URL
+    baseURL: `${serverUrl}/api`,
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ const axiosWithToken = axios.create({
 });
 
 const axiosMultipartWithToken = axios.create({
-    baseURL: `${serverUrl}/api`,  // Django backend URL
+    baseURL: `${serverUrl}/api`,
     timeout: 5000,
     headers: {
         'Content-Type': 'multipart/form-data',
@@ -20,15 +20,15 @@ const axiosMultipartWithToken = axios.create({
     }
 });
 const axiosMultipartNoToken = axios.create({
-    baseURL: `${serverUrl}/`,  // Django backend URL
+    baseURL: `${serverUrl}`,
     timeout: 5000,
     headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'multipart/form-data'
     }
 });
 
 const axiosNoToken = axios.create({
-    baseURL: `${serverUrl}`,  // Django backend URL
+    baseURL: `${serverUrl}`,
     timeout: 5000,
 });
 

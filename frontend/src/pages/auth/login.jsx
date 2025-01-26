@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import style from '../../styles/login.module.css';
 import { useNavigate } from "react-router-dom";
 import LoginImg from '../../assets/images/lock.webp';
+import {axiosMultipartNoToken} from '../../utils/axiosConfig';
+
 function Login () {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         if (e.target.name === 'username') {
@@ -16,8 +20,20 @@ function Login () {
 }
         
 
-    const handleLogin = () => {
-        // Perform login logic here
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        axiosMultipartNoToken.post('/api/token-auth/', {
+            username: username,
+            password: password
+        })
+        .then((response) => {
+            console.log(response.data);
+            navigate('/');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
 
