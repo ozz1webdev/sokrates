@@ -29,11 +29,13 @@ function Login () {
         })
         .then((response) => {
             toast.success("Login successful");
+            localStorage.clear();
             localStorage.setItem('token', response.data.token);
             navigate('/');
         })
         .catch((error) => {
             toast.error("Username or password is incorrect");
+            console.log(error);
         });
     };
 

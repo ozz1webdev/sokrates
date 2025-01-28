@@ -12,18 +12,18 @@ class UserProfile(models.Model):
         ('admin', 'Admin'),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='guest')
     profile_image = models.ImageField(upload_to='images/profiles', default='images/profiles/default.webp')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def email(self):
+        return self.user.email
+
     def __str__(self):
         return self.user.username
-
-    class Meta:
-        verbose_name = 'User Profile'
-        verbose_name_plural = 'User Profiles'
 
 
 def create_user_profile(sender, instance, created, **kwargs):

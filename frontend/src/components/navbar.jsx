@@ -8,6 +8,7 @@ function Navbar() {
 
     const [navbarHeight, setNavbarHeight] = useState('250px');
     const [logoStyle, setLogoStyle] = useState({width: '200px', height: '230px', left:'43%', top: '10px'});
+    const [token,setToken] = useState(localStorage.getItem('token'));
 
     const navigate = useNavigate();
 
@@ -39,8 +40,16 @@ function Navbar() {
                     <li><i onClick={() => navigate('/')}>Home</i></li>
                     <li><i onClick={() => navigate('/posts')}>Posts</i></li>
                     <li><i onClick={() => navigate('/contact')}>Contact</i></li>
-                    <li><i onClick={() => navigate('/login')}>Login</i></li>
-                    <li><i onClick={() => navigate('/register')}>Register</i></li>
+                    {token? ( <>
+                        <li><i onClick={() => navigate('/userprofile')}>My Profile</i></li>
+                        <li><i onClick={() => navigate('/logout')}>Logout</i></li>                
+                    </>
+                    ):( <>
+                        <li><i onClick={() => navigate('/login')}>Login</i></li>
+                        <li><i onClick={() => navigate('/register')}>Register</i></li>
+                    </>
+                    )}
+
                 </ul>
             </div>
         </div>

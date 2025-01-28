@@ -31,21 +31,40 @@ function Register () {
         }
     }
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+
     const handleRegister = (e) => {
         e.preventDefault();
-
+        if (password !== password2) {
+            toast.error("Passwords do not match");
+            return;
+        }
+        if (!validateEmail(email)) {
+            toast.error("Please enter a valid email address");
+            return;
+        }
         if (password === password2 && terms) {
-            axiosMultipartNoToken.post('/api/register/', {
+            axiosMultipartNoToken.post('api/register/', {
                 username: username,
                 password: password,
                 email: email
             })
             .then((response) => {
-                toast.success(response.data.message);
-                navigate('/login');
+                if (response.status === 400) {
+                    toast.error(response.data.message);
+                    return;
+                }
+                if(response.status === 201) {
+                    toast.success("Registration successful");
+                    navigate('/login');
+                }
             })
             .catch((error) => {
-               toast.error(error.response.data.username[0]);
+               toast.error("Registration failed please try again");
+               console.log(error);
             });
         }
     };
