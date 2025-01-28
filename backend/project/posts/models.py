@@ -1,12 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    public = models.BooleanField(default=False)
-    author = models.ForeignKey('api.UserProfile', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="posts/", blank=True, null=True, default="posts/default.jpg")
+    approved = models.BooleanField(default=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="images/posts/", blank=True, null=True, default="posts/defaultPost.webp")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -17,10 +18,10 @@ class Post(models.Model):
         ordering = ['-created_at']
 
 
-class Comment(models.Model):
+class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
-    author = models.ForeignKey('api.UserProfile', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -30,7 +31,7 @@ class Comment(models.Model):
 
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
-    user = models.ForeignKey('api.UserProfile', on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

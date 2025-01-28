@@ -11,6 +11,10 @@ import HomePage from './pages/home.jsx';
 import Footer from './pages/footer.jsx';
 import TermsPage from './pages/terms.jsx';
 import UserProfile from './pages/userProfile.jsx';
+import AdminPage from './pages/adminpage.jsx';
+import TeacherPage from './pages/teacherpage.jsx';
+import StudentPage from './pages/studentpage.jsx';
+import CreatePost from './pages/createPost.jsx';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Toaster} from 'react-hot-toast';
 
@@ -47,6 +51,10 @@ function App() {
             <Route path="/posts" element={<PostsPage />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/adminpage" element={<AdminPage />} />
+            <Route path="/teacherpage" element={<TeacherPage />} />
+            <Route path="/studentpage" element={<StudentPage />} />
+            <Route path="/createpost" element={<CreatePost />} />
           </Routes>
 
         </Layout>

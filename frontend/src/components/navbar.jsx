@@ -12,7 +12,7 @@ function Navbar() {
     const [token,setToken] = useState(localStorage.getItem('token'));
     const [username, setUsername] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+    const [role, setRole] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,6 +21,7 @@ function Navbar() {
             .then(response => {
                 localStorage.setItem('username', response.data.username);
                 localStorage.setItem('role', response.data.role);
+                setRole(response.data.role);
                 localStorage.setItem('profile_image', `http://localhost:8000${response.data.profile_image}`);
                 localStorage.setItem('email', response.data.email);
                 setUsername(response.data.username);
@@ -68,6 +69,12 @@ function Navbar() {
                     <li><i onClick={() => navigate('/posts')}>Posts</i></li>
                     <li><i onClick={() => navigate('/contact')}>Contact</i></li>
                     {token? ( <>
+                        {role === 'teacher' && (
+							<li><i onClick={() => navigate('/teacherpage')}>TeacherPage</i></li>)}
+						{role === 'admin' && (
+							<li><i onClick={() => navigate('/adminpage')}>AdminPage</i></li>)}
+						{role === 'student' && (
+							<li><i onClick={() => navigate('/studentpage')}>StudentPage</i></li>)}
                         <li><i onClick={() => navigate('/userprofile')}>My Profile</i></li>
                         <li><i onClick={() => navigate('/logout')}>Logout - {username}</i></li>                
                     </>
