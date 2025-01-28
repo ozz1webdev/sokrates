@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { axiosWithToken } from "../utils/axiosConfig";
 import { toast } from "react-hot-toast";
+import styles from '../styles/userProfile.module.css';
 
 function UserProfile() {
     const [role, setRole] = useState('');
@@ -13,7 +14,7 @@ function UserProfile() {
         window.location.href = '/login';
     }
     else {
-        axiosWithToken.get('api/profile/')
+        axiosWithToken.get('/api/profile/')
         .then((response) => {
             setUsername(response.data.username);
             setEmail(response.data.email);
@@ -21,16 +22,21 @@ function UserProfile() {
             setUserImage(response.data.profile_image);
         })
         .catch((error) => {
+            toast.error(error.response.data.username[0]);
             console.log(error);
         });
     }
     return (
-        <div>
-            <h2>Username: {username}</h2>
-            <h2>Email: {email}</h2>
-            <h2>Role: {role}</h2>
-            <h2>User Image: </h2>
-            <img src={`http://localhost:8000/${userImage}`} alt="profile" width="300" height="300"/>
+        <div className={styles.profileContainer}>
+            <div className={styles.profileImg}>
+                <img src={userImage} alt="profile image" />
+            </div>
+            <div className={styles.profileData}>
+                <h2>Username: {username}</h2>
+                <h2>Email: {email}</h2>
+                <h2>First Name: </h2>
+                <h2>Last Name: </h2>
+            </div>
 
         </div>
     );

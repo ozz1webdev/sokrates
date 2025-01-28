@@ -82,13 +82,14 @@
 .nav li {
     padding: 15px;
     text-align: left;
+    cursor: pointer;
 }
 
-.nav a {
+.nav li i {
     text-decoration: none;
     color: #886e11;
 }    
 
-.nav a:hover {
+.nav li i:hover {
     color: #007bff; /* Change color on hover */
 }

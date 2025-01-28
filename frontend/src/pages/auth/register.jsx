@@ -5,6 +5,8 @@ import {axiosMultipartNoToken } from '../../utils/axiosConfig';
 import toast from 'react-hot-toast';
 
 function Register () {
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
@@ -14,6 +16,12 @@ function Register () {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
+        if (e.target.name === 'firstname') {
+            setFirstname(e.target.value);
+        }
+        if (e.target.name === 'lastname') {
+            setLastname(e.target.value);
+        }
         if (e.target.name === 'username') {
                 setUsername(e.target.value);
         }
@@ -48,6 +56,8 @@ function Register () {
         }
         if (password === password2 && terms) {
             axiosMultipartNoToken.post('api/register/', {
+                first_name: firstname,
+                last_name: lastname,
                 username: username,
                 password: password,
                 email: email
@@ -73,6 +83,10 @@ function Register () {
         <div className={styles.registerContainer}>
             <h3>Create an account</h3>
             <form onSubmit={handleRegister} className={styles.registerForm}>
+                <label htmlFor="firstname">First Name</label>
+                <input type="text" name="firstname" placeholder="First Name" value={firstname} onChange={handleChange} required/>
+                <label htmlFor="lastname">Last Name</label>
+                <input type="text" name="lastname" placeholder="Last Name" value={lastname} onChange={handleChange} required/>
                 <label htmlFor="username">Username</label>
                 <input type="text" name="username" placeholder="Username" value={username} onChange={handleChange} required/>
                 <label htmlFor="password">Password</label>

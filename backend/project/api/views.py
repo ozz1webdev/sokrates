@@ -15,7 +15,6 @@ class RegisterView(APIView):
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
-        password = request.data.get('password')
 
         # Check if the username already exists
         if User.objects.filter(username=username).exists():
@@ -69,5 +68,12 @@ class ProfileView(APIView):
     def get(self, request):
         user_profile = UserProfile.objects.get(user=request.user)
         serializer = UserProfileSerializer(user_profile)
-        print(serializer.data)
         return Response(serializer.data, status=200)
+
+    def put(self, request):
+        user_profile = UserProfile.objects.get(user=request.user)
+        serializer = UserProfileSerializer(user_profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)

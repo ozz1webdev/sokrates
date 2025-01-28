@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import style from '../../styles/login.module.css';
 import { useNavigate } from "react-router-dom";
 import LoginImg from '../../assets/images/lock.webp';
-import {axiosMultipartNoToken} from '../../utils/axiosConfig';
+import {axiosMultipartNoToken, axiosWithToken} from '../../utils/axiosConfig';
 import toast from 'react-hot-toast';
+import GetUserData from "../../components/getUserData";
+import axios from "axios";
 
 function Login () {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [token, setToken] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -29,6 +31,7 @@ function Login () {
         })
         .then((response) => {
             toast.success("Login successful");
+            window.location.reload(false);
             localStorage.clear();
             localStorage.setItem('token', response.data.token);
             navigate('/');
