@@ -1,41 +1,79 @@
-import styles from '../styles/createPost.module.css';
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { axiosWithToken } from "../utils/axiosConfig";
-import { toast } from "react-hot-toast";
+import React, { useState } from 'react';
+import style from '../styles/createPost.module.css';
+import { axiosMultipartWithToken } from '../utils/axiosConfig';
+import toast from 'react-hot-toast';
+import { useNavigate
 
-function CreatePost() {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const navigate = useNavigate();
+ } from 'react-router-dom';
+const CreatePost = () => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [image, setImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axiosWithToken.post('/posts', { title, content });
-            if (response.status === 201) {
-                toast.success('Post created successfully');
-                navigate('/posts');
-            } else {
-                toast.error('Failed to create post');
-            }
-        } catch (error) {
-            toast.error('Failed to create post');
-        }
-    };
+  const navigate = useNavigate();
 
-    return (
-        <div className={styles.createPostContainer}>
-            <h1>Create Post</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="title">Title:</label>
-                <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                <label htmlFor="content">Content:</label>
-                <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} />
-                <button type="submit">Create Post</button>
-            </form>
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('approved', false);
+    if (image) formData.append('image', image);
+
+    try {
+      const response = await axiosMultipartWithToken.post('post/create/', formData);
+      setTitle('');
+      setContent('');
+      setImage(null);
+      toast.success('Post created successfully!');
+    } catch (error) {
+      console.error('Error creating post:', error);
+      toast.error('Failed to create post.');
+    } finally {
+      setIsSubmitting(false);
+//      window.location.reload(false);
+      navigate('/posts');
+    }
+  };
+
+  return (
+    <div  className={style.createPostContainer}>
+      <h2>Create Post</h2>
+      <form  onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-    );
-}
+        <div>
+          <textarea
+            value={content}
+            placeholder="Content"
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Write something amazing..."
+          />
+        </div>
+        <div>
+          <label>Image</label>
+          <input type="file" onChange={handleImageChange} accept="image/*" />
+        </div>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Posting...' : 'Create Post'}
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default CreatePost;

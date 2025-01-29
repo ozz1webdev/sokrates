@@ -72,7 +72,7 @@ function Navbar() {
                         {role === 'teacher' && (
 							<li><i onClick={() => navigate('/teacherpage')}>TeacherPage</i></li>)}
 						{role === 'admin' && (
-							<li><i onClick={() => navigate('/adminpage')}>AdminPage</i></li>)}
+							<li><i className={styles.adminMenuItem} onClick={() => navigate('/adminpage')}>AdminPage</i></li>)}
 						{role === 'student' && (
 							<li><i onClick={() => navigate('/studentpage')}>StudentPage</i></li>)}
                         <li><i onClick={() => navigate('/userprofile')}>My Profile</i></li>
@@ -86,7 +86,13 @@ function Navbar() {
 
                 </ul>
             </div>
+            <div id="menu" className={styles.adminSubMenu}>
+                <ul>
+                    <li><i onClick={() => navigate('/createpost')}>Create Post</i></li>
+                </ul>
+            </div>
         </div>
+
     );
 }
 

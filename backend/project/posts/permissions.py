@@ -8,7 +8,7 @@ class IsAdminOrTeacher(BasePermission):
     """
     def has_permission(self, request, view):
 
-        role = UserProfile.objects.get(owner=request.user).role
+        role = UserProfile.objects.get(user=request.user).role
         if role == 'admin' or role == 'teacher':
             return True
 

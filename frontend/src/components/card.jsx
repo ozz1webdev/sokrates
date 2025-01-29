@@ -3,17 +3,18 @@ import styles from '../styles/card.module.css';
 import image from '../assets/images/paper.webp';
 import likeIcon from '../assets/images/thumbUp30px.webp';
 import commentIcon from '../assets/images/comments30px.webp';
+import DateConvert from './dateConvert';
 
 function Card (props) { 
     return ( 
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
                 <h3>{props.title}</h3>
-                <i className="cardHeaderDate">Posted on {props.date} from {props.username}</i>
+                <i className="cardHeaderDate">Posted on <DateConvert dateString={props.date} /> from {props.username}</i>
             </div>
-            <img src={image} alt="card image" /> 
+            <img src={props.image} alt="card image" /> 
             <div className={styles.cardBody}> 
-                <p className={styles.cardContext}>Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+                <p className={styles.cardContext}>{props.content}</p> 
             </div> 
             <hr />
             <div className={styles.cardFooter}>

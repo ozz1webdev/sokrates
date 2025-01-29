@@ -12,13 +12,13 @@ from .views import (PostList,
                     ApprovePost)
 
 urlpatterns = [
-    path('api/posts/', PostList.as_view()),
-    path('api/approvedposts/', ApprovedPostsList.as_view()),
-    path('api/approvepost/<int:pk>/', ApprovePost.as_view()),
-    path('api/posts/<int:pk>/', PostDetail.as_view()),
-    path('api/create/', PostCreate.as_view()),
-    path('api/update/<int:pk>/', PostUpdate.as_view()),
-    path('api/delete/<int:pk>/', PostDelete.as_view()),
-    path('api/comments/<int:pk>/', CommentsList.as_view()),
-    path('api/comments/create/<int:pk>/', CommentsCreate.as_view()),
+    path('posts/', PostList.as_view()),
+    path('approvedposts/', ApprovedPostsList.as_view()),
+    path('approvepost/<int:pk>/', ApprovePost.as_view()),
+    path('posts/<int:pk>/', PostDetail.as_view()),
+    path('create/', PostCreate.as_view()),
+    path('update/<int:pk>/', PostUpdate.as_view()),
+    path('delete/<int:pk>/', PostDelete.as_view()),
+    path('comments/<int:pk>/', CommentsList.as_view()),
+    path('comments/create/<int:pk>/', CommentsCreate.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
