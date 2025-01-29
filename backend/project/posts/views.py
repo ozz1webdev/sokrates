@@ -135,3 +135,40 @@ class CommentsCreate(APIView):
             serializer.save(author=request.user, post=post)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CommentsCount(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request, pk):
+        comments_count = Comments.objects.filter(post=pk).count()
+        return Response({"comments_count": comments_count})
+
+
+class LikeView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            post = Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            return Response({"error": "Post not found"}, status=404)
+
+        try:
+            like = Like.objects.get(post=post, user=request.user)
+            like.delete()
+            return Response({"message": "Like deleted successfully"}, status=status.HTTP_200_OK)
+        except Like.DoesNotExist:
+            Like.objects.create(post=post, user=request.user)
+            return Response({"message": "Like created successfully"}, status=status.HTTP_201_CREATED)
+        
+    def get(self, request, pk):
+        try:
+            post = Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            return Response({"error": "Post not found"}, status=404)
+
+        count = Like.objects.filter(post=post).count()
+        return Response({"count": count})

@@ -8,7 +8,7 @@ import 'animate.css';
 
 function Posts() {
     const [posts, setPosts] = useState([]);
-
+    const role = localStorage.getItem('role');
     const navigate = useNavigate();
 
     const fetchApprovedPosts = async () => {
@@ -30,6 +30,27 @@ function Posts() {
         }
     };
 
+    const countComments = (id) => {
+        try {
+            const response = axiosWithToken.get(`/post/comments/count/${id}/`);
+            return response.data;
+            alert(response.data);
+        } catch (error) {
+            console.error("Error fetching comments count:", error);
+        }
+    };
+
+    const likePost = async (id) => {
+        try {
+            const response = await axiosWithToken.post(`/post/like/${id}/`);
+            console.log(response.data);
+        } catch (error) {
+            console.error("Error liking post:", error);
+        }
+    };
+
+
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         const role = getRole();
@@ -48,7 +69,12 @@ function Posts() {
 
     return (
         <div className={styles.postsContainer}>
-            <i>Create Post</i>
+            {role === 'admin' &&
+                <button className={styles.createPostButton} onClick={() => navigate('/createpost')}>Create Post</button>
+            }
+            {role === 'teacher' &&
+                <button className={styles.createPostButton} onClick={() => navigate('/createpost')}>Create Post</button>
+            }
 
             {posts.map((post) => (
                 <Card key={post.id} 
@@ -58,6 +84,7 @@ function Posts() {
                     username={post.author} 
                     image={post.image} 
                     content={post.content}
+                    approved={post.approved}
                 />
             ))}
 

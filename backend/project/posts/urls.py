@@ -9,7 +9,9 @@ from .views import (PostList,
                     PostDelete,
                     CommentsList,
                     CommentsCreate,
-                    ApprovePost)
+                    ApprovePost,
+                    CommentsCount,
+                    LikeView)
 
 urlpatterns = [
     path('posts/', PostList.as_view()),
@@ -21,4 +23,6 @@ urlpatterns = [
     path('delete/<int:pk>/', PostDelete.as_view()),
     path('comments/<int:pk>/', CommentsList.as_view()),
     path('comments/create/<int:pk>/', CommentsCreate.as_view()),
+    path('comments/count/<int:pk>/', CommentsCount.as_view()),
+    path('likes/<int:pk>/', LikeView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

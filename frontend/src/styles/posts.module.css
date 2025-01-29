@@ -4,3 +4,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.createPostButton {
+    position: absolute;
+    left:10px;
+    top:10px;
+    width: 150px;
+    height: 50px;
+    margin: 0;
+    padding: 10px;
+}

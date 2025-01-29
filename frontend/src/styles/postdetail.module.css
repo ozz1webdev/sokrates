@@ -19,11 +19,11 @@
 }
 .postMenu {
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap:20px;
-    width:200px;
+    width:100%;
     height:200px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     left:10px;
@@ -42,18 +42,58 @@
     height: 50px;
     cursor: pointer;
 }
-.imgContainer {
-}
 
 .postImage img {
     width: 100%;
     height: 100%;
 }
 
-.title {
-
+.approveButton {
+    left: 200px;
+    top: 280px;
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
 }
-
-.content {
+.rejectButton {
+    left: 200px;
+    top: 280px;
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+}
+.commentForm form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    width:100%;
+    height:100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.commentForm {
+    width:400px;
+}
+.commentForm form textarea {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 1px solid black;
+    width: 100%;
+    height: 100px;
+    background-color: whitesmoke;
+}
+.commentForm form button {
+    width: 100px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+}
+.rejected {
+    color:red;
+}
+.approved {
+    color:green;
 }
 

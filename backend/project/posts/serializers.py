@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Comments
+from .models import Post, Comments, Like
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -21,6 +21,7 @@ class PostSerializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.content = validated_data.get('content', instance.content)
         instance.author = validated_data.get('author', instance.author)
+        instance.approved = validated_data.get('approved', instance.approved)
         instance.updated_at = validated_data.get('updated_at', instance.updated_at)
         instance.created_at = validated_data.get('created_at', instance.created_at)
         if 'image' not in validated_data:
@@ -50,3 +51,31 @@ class CommentsSerializer(serializers.ModelSerializer):
     def delete(self, instance):
         instance.delete()
         return instance
+
+
+class LikesSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    post = serializers.ReadOnlyField(source='post.title')
+
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        instance.user = validated_data.get('user', instance.user)
+        instance.post = validated_data.get('post', instance.post)
+        instance.save()
+        return super().update(instance, validated_data)
+
+    def delete(self, instance):
+        instance.delete()
+        return instance
+
+    def CountLikes(self, id):
+        count = Like.objects.filter(post=id).count()
+        return count
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+        read_only_fields = ['user', 'post']

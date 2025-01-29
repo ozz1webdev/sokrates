@@ -4,11 +4,20 @@
     align-items: center;
     justify-content: center;
     gap:20px;
-    width:90%;
+    width:500px;
     height:100%;
     margin-bottom:50px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.589);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+}
+.approved {
+    border-color: green;
+    box-shadow: 0 20px 40px green;
+}
+.rejected {
+    border-color: red;
+    box-shadow: 0 20px 40px red;
 }
 .cardContainer>img {
     width:90%;
