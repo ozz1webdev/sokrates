@@ -11,6 +11,8 @@ function Register () {
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const [email, setEmail] = useState('');
+    const [usercode, setUsercode] = useState('');
+    const [userrole, setUserRole] = useState('');
     const [terms, setTerms] = useState(false);
 
     const navigate = useNavigate();
@@ -34,6 +36,9 @@ function Register () {
         if (e.target.name === 'email') {
                 setEmail(e.target.value);
         }
+        if (e.target.name === 'usercode') {
+            setUsercode(e.target.value);
+        }
         if (e.target.name === 'terms') {
             setTerms(e.target.checked);
         }
@@ -46,6 +51,15 @@ function Register () {
 
     const handleRegister = (e) => {
         e.preventDefault();
+        if (usercode === '1000') {
+            setUserRole('teacher');
+        }
+        else if (usercode === '2000') {
+            setUserRole('student');
+        }
+        else {
+            setUserRole('guest');
+        }
         if (password !== password2) {
             toast.error("Passwords do not match");
             return;
@@ -60,7 +74,7 @@ function Register () {
                 last_name: lastname,
                 username: username,
                 password: password,
-                email: email
+                email: email,
             })
             .then((response) => {
                 if (response.status === 400) {
@@ -95,6 +109,8 @@ function Register () {
                 <input type="password" name="password2" placeholder="Repeat Password" value={password2} onChange={handleChange} required/>
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" placeholder="Email" value={email} onChange={handleChange} required/>
+                <label htmlFor="usercode">User Code</label>
+                <input type="password" name="usercode" placeholder="User Code (if Available)" value={usercode} onChange={handleChange} required/>
                 <label htmlFor="terms" onClick={() => {navigate('/terms'); }}>Agree to terms and conditions</label>
                 <input type="checkbox" name="terms" onChange={handleChange} required />
                 <button type="submit">Register</button>

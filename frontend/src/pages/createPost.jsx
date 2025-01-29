@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../styles/createPost.module.css';
 import { axiosMultipartWithToken } from '../utils/axiosConfig';
 import toast from 'react-hot-toast';
@@ -13,6 +13,13 @@ const CreatePost = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+  
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };

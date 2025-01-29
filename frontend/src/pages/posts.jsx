@@ -22,7 +22,7 @@ function Posts() {
 
     const fetchPosts = async () => {
         try {
-            const response = await axiosWithToken.get(/posts/);
+            const response = await axiosWithToken.get('/post/posts/');
             setPosts(response.data);
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -35,10 +35,10 @@ function Posts() {
             navigate('/login');
         } else {
             if (localStorage.getItem('role') === 'admin') {
-                fetchApprovedPosts();
+                fetchPosts();
             }
             else {
-                fetchPosts();
+                fetchApprovedPosts();
             }
         }
     }, []);
