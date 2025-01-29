@@ -11,7 +11,8 @@ from .views import (PostList,
                     CommentsCreate,
                     ApprovePost,
                     CommentsCount,
-                    LikeView)
+                    LikeView,
+                    GetLastThreePosts)
 
 urlpatterns = [
     path('posts/', PostList.as_view()),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('comments/create/<int:pk>/', CommentsCreate.as_view()),
     path('comments/count/<int:pk>/', CommentsCount.as_view()),
     path('likes/<int:pk>/', LikeView.as_view()),
+    path('lastthree/', GetLastThreePosts.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

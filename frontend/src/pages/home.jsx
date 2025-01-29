@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import styles from '../styles/home.module.css';
+import LastThree from '../components/getLastThreePost';
+
 
 function Home() {
 
     return (
         <div className={styles.homeContainer}>
-            <h1>Homepage</h1>
+            <LastThree />
         </div>
     );
 }

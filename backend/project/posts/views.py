@@ -172,3 +172,13 @@ class LikeView(APIView):
 
         count = Like.objects.filter(post=post).count()
         return Response({"count": count})
+
+
+class GetLastThreePosts(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request):
+        posts = Post.objects.filter(approved=True).order_by('-created_at')[:3]
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)

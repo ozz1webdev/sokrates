@@ -1,7 +1,7 @@
 .homeContainer {
+    position: relative;
+    top:150px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
 }
