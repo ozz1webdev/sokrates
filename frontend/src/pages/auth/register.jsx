@@ -75,6 +75,7 @@ function Register () {
                 username: username,
                 password: password,
                 email: email,
+                role: userrole
             })
             .then((response) => {
                 if (response.status === 400) {

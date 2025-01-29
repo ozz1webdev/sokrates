@@ -3,6 +3,7 @@ import styles from '../styles/posts.module.css';
 import Card from '../components/card';
 import { useNavigate } from "react-router-dom";
 import { axiosWithToken, axiosNoToken } from "../utils/axiosConfig";
+import getRole from "../features/getRole";
 import 'animate.css';
 
 function Posts() {
@@ -31,6 +32,8 @@ function Posts() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        const role = getRole();
+        
         if (!token) {
             navigate('/login');
         } else {
@@ -45,9 +48,17 @@ function Posts() {
 
     return (
         <div className={styles.postsContainer}>
+            <i>Create Post</i>
 
             {posts.map((post) => (
-                <Card key={post.id} title={post.title} date={post.created_at} username={post.author} image={post.image} content={post.content} />
+                <Card key={post.id} 
+                    id={post.id} 
+                    title={post.title} 
+                    date={post.created_at} 
+                    username={post.author} 
+                    image={post.image} 
+                    content={post.content}
+                />
             ))}
 
         </div>

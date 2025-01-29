@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from '../styles/card.module.css';
-import image from '../assets/images/paper.webp';
 import likeIcon from '../assets/images/thumbUp30px.webp';
 import commentIcon from '../assets/images/comments30px.webp';
 import DateConvert from './dateConvert';
+import { useNavigate } from 'react-router-dom';
 
 function Card (props) { 
+
+    const navigate = useNavigate();
+
     return ( 
         <div className={styles.cardContainer}>
             <div className={styles.cardHeader}>
@@ -18,7 +21,7 @@ function Card (props) {
             </div> 
             <hr />
             <div className={styles.cardFooter}>
-                <i className={styles.cardLink}>Read More</i> 
+                <i className={styles.cardLink} onClick={() => navigate(`/postdetail/${props.id}`)}>Read More</i> 
                 <div className={styles.cardLike}>
                     <img src={commentIcon} alt="Comment" />
                     <i className={styles.commentsCount}>Comments: 10</i>

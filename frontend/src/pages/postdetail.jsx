@@ -1,20 +1,19 @@
 import styles from '../styles/postdetail.module.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { parseISO,format, set } from 'date-fns';
 import DOMPurify from 'dompurify';
-import { axiosNoToken, serverUrl } from '../utils/axiosConfig';
+import { axiosWithToken } from '../utils/axiosConfig';
 import backarrow from '../assets/images/arrow-left.webp';
+import getRole from '../features/getRole';
 
 function PostDetail({props}) {
 
     const {id} = useParams();
     const [post, setPost] = useState({});
-    const [youtubeVideoid, setYoutubeVideoId] = useState(null);
-    const [yUrl, setYUrl] = useState(null);
+    const role = localStorage.getItem('role');
 
-    const cover = serverUrl + post.image;
+    const image = post.image;
     const content = DOMPurify.sanitize(post.content);
     
     const formatDate = (dateString) => {
@@ -30,7 +29,7 @@ function PostDetail({props}) {
 
     const fetchPost = async () => {
         try {
-            const response = await axiosNoToken.get(`/post/${id}/`);
+            const response = await axiosWithToken.get(`/post/posts/${id}/`);
             if (response.status === 200) {
                 setPost(response.data);
             }
@@ -46,62 +45,40 @@ function PostDetail({props}) {
         fetchPost();
     }, []);
 
-    useEffect(() => {
-        const id = getVideoId();
-        setYoutubeVideoId(id);
-    }, [post.youtubeUrl,setYoutubeVideoId]);
-
-    function getVideoId() {
-        const url = post.youtubeUrl;
-        try {
-            const urlObj = new URL(url);
-            return urlObj.searchParams.get('v');
-        } catch (error) {
-            console.error("Invalid URL", error);
-            return null;
+    const deletePost = async (postId) => {
+        const role = localStorage.getItem('role');
+        if (role === 'admin' || role === 'teacher') {
+            try {
+                await axiosWithToken.delete(`$/post/delete/${postId}/`);
+            } catch (error) {
+                console.error("Error deleting post:", error);
+            }
         }
-    }
+    };
 
-
-    return (
-        <>
-            <div className={styles.container}>
-                <br />
-                <br />
-                    <Link to="/home"><img className={styles.backarrow} src={backarrow} alt="back" /></Link>
-                <br />
-                <br />
-                <hr />
-                <br />
-                <div className={styles.cover}>
-                    <img className={styles.coverImage} src={cover} alt="post card" />
-                </div>
-                <br />
-                    <h1>{post.title}</h1>
-                <br />
-                    <div className={styles.youtubeVideo}>
-                        <iframe
-                        width="560"
-                        height="315"
-                        src={`https://www.youtube.com/embed/${youtubeVideoid ? youtubeVideoid : getVideoId}`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        ></iframe>
-                    </div>
-                <br />
-                <br/>
-                <dic className={styles.content}>
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                </dic>
-                <br />
-                <br />
-                <i>Created at {formatDate(post.created_at)} from {post.author}</i>
-                <br />
-            </div>                
-        </>
-        
-    );
+return (
+    <>
+        <div className={styles.postDetailContainer}>
+            <Link to="/posts"><img className={styles.backarrow} src={backarrow} alt="back" /></Link>
+            <div className={styles.postMenu}>
+                {role === 'admin' && (
+                    <Link to={`/editpost/${post.id}`}><button className={styles.editButton}>Edit Post</button></Link>
+                )}
+                {role === 'admin' && (
+                    <button onClick={deletePost(post.id)} className={styles.deleteButton}>Delete Post</button>
+                )}
+            </div>
+            <div className={styles.imgContainer}>
+                <img className={styles.postImage} src={image} alt="post card" />
+            </div>
+            <h1 className={styles.title}>{post.title}</h1>
+            <div className={styles.content}>
+                <div dangerouslySetInnerHTML={{ __html: content }} />
+            </div>
+            <i>Created at {formatDate(post.created_at)} from {post.author}</i>
+        </div>                
+    </>
+);
 }
 
 export default PostDetail;

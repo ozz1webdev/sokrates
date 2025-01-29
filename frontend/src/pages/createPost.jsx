@@ -2,85 +2,87 @@ import React, { useEffect, useState } from 'react';
 import style from '../styles/createPost.module.css';
 import { axiosMultipartWithToken } from '../utils/axiosConfig';
 import toast from 'react-hot-toast';
-import { useNavigate
+import { useNavigate} from 'react-router-dom';
+import GetRole from '../features/getRole';
 
- } from 'react-router-dom';
 const CreatePost = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [image, setImage] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-    }
-  }, [navigate]);
-  
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        }
+    }, [navigate]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('approved', false);
-    if (image) formData.append('image', image);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
 
-    try {
-      const response = await axiosMultipartWithToken.post('post/create/', formData);
-      setTitle('');
-      setContent('');
-      setImage(null);
-      toast.success('Post created successfully!');
-    } catch (error) {
-      console.error('Error creating post:', error);
-      toast.error('Failed to create post.');
-    } finally {
-      setIsSubmitting(false);
-//      window.location.reload(false);
-      navigate('/posts');
-    }
-  };
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('approved', false);
+        if (image) formData.append('image', image);
 
-  return (
+        try {
+            const response = await axiosMultipartWithToken.post('post/create/', formData);
+            setTitle('');
+            setContent('');
+            setImage(null);
+            toast.success('Post created successfully!');
+        } catch (error) {
+            console.error('Error creating post:', error);
+            toast.error('Failed to create post.');
+        } finally {
+            setIsSubmitting(false);
+        //      window.location.reload(false);
+            navigate('/posts');
+        }
+    };
+
+    return (
     <div  className={style.createPostContainer}>
-      <h2>Create Post</h2>
-      <form  onSubmit={handleSubmit}>
+        <h2>Create Post</h2>
+        <form  onSubmit={handleSubmit}>
         <div>
-          <input
+            <input
             type="text"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-          />
+            />
         </div>
         <div>
-          <textarea
+            <textarea
             value={content}
             placeholder="Content"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Write something amazing..."
-          />
+            />
         </div>
         <div>
-          <label>Image</label>
-          <input type="file" onChange={handleImageChange} accept="image/*" />
+            <label>Image</label>
+            <input type="file" onChange={handleImageChange} accept="image/*" />
         </div>
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Posting...' : 'Create Post'}
+            {isSubmitting ? 'Posting...' : 'Create Post'}
         </button>
-      </form>
+        </form>
     </div>
-  );
-};
+    );
+}
+
+
 
 export default CreatePost;

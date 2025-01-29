@@ -29,8 +29,8 @@ class ApprovedPostsList(APIView):
 
 
 class PostDetail(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def get(self, request, pk):
         post = Post.objects.get(pk=pk)
@@ -63,7 +63,6 @@ class PostUpdate(APIView):
 
     def put(self, request, pk, format=None):
         post = self.get_object(pk)
-        print(request.data)
         if post is None:
             return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
         if post.author != request.user and not request.user.is_staff:
