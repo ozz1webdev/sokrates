@@ -127,7 +127,7 @@ The project is deployed on a nginx server and can be accessed at [https://code5.
 
 ![EditPost](./Readme/editpost.png)
 
-![Menuafterlogin](./Readme/menualogin.png)
+![Menuafterlogin](./Readme/menulogin.png)
 
 ![hamburgermenu](./Readme/hamburger.png)
 
